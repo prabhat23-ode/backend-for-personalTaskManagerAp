@@ -12,6 +12,16 @@ const newUser = async (req, res) => {
   }
 };
 
+//update user
+const updateUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ message: "Updated user Successfully" });
+  } catch (err) {
+    res.status(400).json({ message: err.message || "Cannot update User" });
+  }
+};
+
 //deleting a user
 const deleteUser = async (req, res) => {
   try {
@@ -23,4 +33,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { newUser, deleteUser };
+export { newUser, updateUser, deleteUser };

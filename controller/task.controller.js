@@ -12,18 +12,24 @@ const newTask = async (req, res) => {
   }
 };
 
-//remove a task
+//update a task
+const updateTask = async (req, res) => {
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body);
+    res.json({message: "update successful"})
+  } catch (err) {
+    res.status(400).json({ message: err.message || "Cannot update Task" });
+  }
+};
 
-//deleting a user
+//remove a task
 const deleteTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
-    if (!task) return res.status(404).json({ message: "No Task Found" });
     res.json({ message: "Task removed" });
   } catch (err) {
     res.status(400).json({ message: err.message || "Failed" });
   }
 };
 
-
-export {newTask, deleteTask};
+export { newTask, updateTask, deleteTask };

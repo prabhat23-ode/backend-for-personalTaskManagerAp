@@ -11,17 +11,14 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    content: {
-      type: String,
-      required: true,
+    complete: {
+      type: Boolean,
+      default: false,
     },
-    picture:{
-      type: String,
-    }
   },
   { timestamps: true }
 );
 
 const Task = mongoose.model("Task", taskSchema);
 
-export default Task
+export default Task;
