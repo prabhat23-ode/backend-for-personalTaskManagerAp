@@ -3,7 +3,7 @@ import Task from "../model/task.model.js";
 //add a task
 const newTask = async (req, res) => {
   try {
-    const { title, description, content, picture } = req.body;
+    const { title, description, userId, importance } = req.body;
     const task = new Task(req.body);
     await task.save();
     res.status(201).json(task);
@@ -12,11 +12,21 @@ const newTask = async (req, res) => {
   }
 };
 
+//get tasks
+const getTask = async (req, res) => {
+  try {
+    const task = await Task.find();
+    res.status(200).json(task);
+  } catch (err) {
+    res.status(400).json({ message: err.message || "Cannot get Task" });
+  }
+};
+
 //update a task
 const updateTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body);
-    res.json({message: "update successful"})
+    res.json({ message: "update successful" });
   } catch (err) {
     res.status(400).json({ message: err.message || "Cannot update Task" });
   }
@@ -32,4 +42,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-export { newTask, updateTask, deleteTask };
+export { newTask, getTask, updateTask, deleteTask };

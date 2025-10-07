@@ -7,26 +7,22 @@ const taskSchema = new mongoose.Schema(
       required: true,
       maxlength: 20,
     },
-    description: {
+    deadline: {
       type: String,
-      required: true,
     },
-    userId: {
-      type: String,
-      required: true,
+    complete: {
+      type: Boolean,
+      default: false,
     },
-    importance: {
-      type: String,
-      lowercase: true,
-    },
-    subtasks: [{
+    taskId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "SubTask"
-    }]
+      ref: "Task",
+      required: true
+    },
   },
   { timestamps: true }
 );
 
-const Task = mongoose.model("Task", taskSchema);
+const SubTask = mongoose.model("SubTask", taskSchema);
 
-export default Task;
+export default SubTask;
