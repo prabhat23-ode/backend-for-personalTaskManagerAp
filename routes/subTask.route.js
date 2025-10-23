@@ -1,4 +1,5 @@
 import express from "express";
+import auth from "../middleware/auth.js";
 import {
   newSubTask,
   getSubTask,
@@ -8,9 +9,9 @@ import {
 
 const subTaskRouter = express.Router();
 
-subTaskRouter.post("/new-sub", newSubTask);
-subTaskRouter.get("/sub-tasks/:taskId", getSubTask);
-subTaskRouter.put("/update-sub/:id", updateSubTask);
-subTaskRouter.delete("/delete-sub/:id", deleteSubTask);
+subTaskRouter.post("/new-sub", auth, newSubTask);
+subTaskRouter.get("/sub-tasks/:taskId", auth, getSubTask);
+subTaskRouter.put("/update-sub/:id", auth, updateSubTask);
+subTaskRouter.delete("/delete-sub/:id", auth, deleteSubTask);
 
 export default subTaskRouter;
